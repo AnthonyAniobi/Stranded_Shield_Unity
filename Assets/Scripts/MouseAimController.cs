@@ -5,17 +5,16 @@ public class MouseAimController : MonoBehaviour
 {
     
     [SerializeField] private float mouseSensitivity = 100f;
+    [SerializeField] private float minRotation = -90f;
+    [SerializeField] private float maxRotation = 90f;
 
     private float xRotation = 0f;
     private float yRotation = 0f;
 
-    private Rigidbody rb;
-    private bool hasRigidbody = false;
+
 
     void Start()
     {
-
-        hasRigidbody = TryGetComponent<Rigidbody>(out rb);
         Cursor.lockState = CursorLockMode.Locked; // remove cursor from screen
     }
 
@@ -26,9 +25,9 @@ public class MouseAimController : MonoBehaviour
         xRotation += mouseInput.ReadValue<Vector2>().y * mouseSensitivity * Time.deltaTime;
         yRotation += mouseInput.ReadValue<Vector2>().x * mouseSensitivity * Time.deltaTime;
 
-        if (hasRigidbody)
-        {
-            rb.gameObject.transform.localRotation = Quaternion.Euler(-xRotation, yRotation, 0f);
-        }
+        xRotation = Mathf.Clamp(xRotation, minRotation, maxRotation);
+
+        gameObject.transform.localRotation = Quaternion.Euler(-xRotation, yRotation, 0f);
+        
     }
 }
