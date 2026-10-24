@@ -21,9 +21,9 @@ public class MouseAimController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputAction mouseInput = InputSystem.actions.FindAction("Look");
-        xRotation += mouseInput.ReadValue<Vector2>().y * mouseSensitivity * Time.deltaTime;
-        yRotation += mouseInput.ReadValue<Vector2>().x * mouseSensitivity * Time.deltaTime;
+        Vector2 mouseInput = CustomInputManager.Instance.GetLookInput();
+        xRotation += mouseInput.y * mouseSensitivity * Time.deltaTime;
+        yRotation += mouseInput.x * mouseSensitivity * Time.deltaTime;
 
         xRotation = Mathf.Clamp(xRotation, minRotation, maxRotation);
 

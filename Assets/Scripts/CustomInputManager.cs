@@ -27,23 +27,21 @@ public class CustomInputManager : MonoBehaviour
         inputMap.Enable();
     }
 
-    Vector2 GetMoveInput()
+    public Vector2 GetMoveInput()
     {
         InputAction moveInput = inputMap.FindAction("Move");
         return moveInput.ReadValue<Vector2>();
     }
 
-    bool IsJumpPressed()
+    public bool IsJumpPressed()
     {
         InputAction jumpInput = inputMap.FindAction("Jump");
         return jumpInput.triggered;
     }
 
-    Vector2 GetLookInput()
+    public Vector2 GetLookInput()
     {
         InputAction lookInput = inputMap.FindAction("Look");
         return lookInput.ReadValue<Vector2>();
     }
-
-    
 }

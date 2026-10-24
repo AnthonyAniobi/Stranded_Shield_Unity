@@ -17,16 +17,14 @@ public class MovementController : MonoBehaviour
 
     void Update()
     {
-        InputAction moveInput = InputSystem.actions.FindAction("Move");  
-        InputAction jumpAction = InputSystem.actions.FindAction("Jump"); 
-
-        Vector2 moveVector = moveInput.ReadValue<Vector2>();
+        bool jumpAction = CustomInputManager.Instance.IsJumpPressed();
+        Vector2 moveVector = CustomInputManager.Instance.GetMoveInput();
 
         Vector3 inputDirection = new Vector3(moveVector.x, 0f, moveVector.y);
         Quaternion yawRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         Vector3 moveDirection = (yawRotation * inputDirection).normalized * moveSpeed;
 
-        if(jumpAction.triggered && characterController.isGrounded)
+        if(jumpAction && characterController.isGrounded)
         {
             velocity.y = Mathf.Sqrt(2f * Mathf.Abs(gravity) * jumpHeight); // jump height of 1.5 units
         }
