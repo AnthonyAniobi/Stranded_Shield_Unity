@@ -22,7 +22,9 @@ public class MovementController : MonoBehaviour
 
         Vector2 moveVector = moveInput.ReadValue<Vector2>();
 
-        Vector3 moveDirection = new Vector3(moveVector.x, 0f, moveVector.y).normalized * moveSpeed;
+        Vector3 inputDirection = new Vector3(moveVector.x, 0f, moveVector.y);
+        Quaternion yawRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        Vector3 moveDirection = (yawRotation * inputDirection).normalized * moveSpeed;
 
         if(jumpAction.triggered && characterController.isGrounded)
         {
